@@ -1,56 +1,40 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp(
-  items: new List<String>.generate(100, (i) => "item $i")
-));
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
-  final List<String> items;
-  MyApp({Key key, @required this.items}):super(key: key);
   @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      title: 'welcome to flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('hello world')
+  Widget build(BuildContext context) {
+    var stack = new Stack(
+      alignment: const FractionalOffset(0.5, 0.8),
+      children: <Widget>[
+        new CircleAvatar(
+          backgroundImage: NetworkImage('https://tse1-mm.cn.bing.net/th/id/OIP.XvIVgdja1iFse6HW1W2wcwHaEy?w=300&h=194&c=7&o=5&pid=1.7'),
+          radius: 100,
         ),
-        body: new ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index){
-            return new ListTile(
-              title: new Text('${items[index]}')
-            );
-          }
+        new Positioned(
+          top: 20,
+          left: 100,
+          child: new Text('北极狗熊')
+        ),
+        new Positioned(
+          top: 120,
+          left: 10,
+          child: new Text('啦啦啦')
         )
-      )
+      ],
+    );
+
+    return MaterialApp(
+      title: 'flutter Demo',
+      home: Scaffold(
+        appBar: new AppBar(
+          title: new Text('flutter demo'),
+        ),
+        body: Center(
+          child: stack,
+        )
+      ),
     );
   }
 }
-
-// class MyList extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView(
-//               scrollDirection: Axis.horizontal,
-//               children: <Widget>[
-//                 Container(
-//                   width: 150,
-//                   color: Colors.lightBlue
-//                 ),
-//                 Container(
-//                   width: 150,
-//                   color: Colors.lightGreen
-//                 ),
-//                 Container(
-//                   width: 150,
-//                   color: Colors.orange
-//                 ),
-//                 Container(
-//                   width: 150,
-//                   color: Colors.pinkAccent
-//                 ),
-//               ],
-//             );
-//   }
-// }
