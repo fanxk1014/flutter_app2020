@@ -1,43 +1,69 @@
 import 'package:flutter/material.dart';
 
-class Product{
-  final String title;
-  final String description;
-  Product(this.title, this.description);
-}
-
 void main(){
   runApp(MaterialApp(
-    title: '数据传递',
-    home: ProductList(
-      products: List.generate(
-        20,
-        (i) => Product('商品 $i', '这是一个商品详情，编号为：$i')
-      )
-    )
+    title: '页面跳转返回数据',
+    home: FirstScreen()
   ));
 }
 
-class ProductList extends StatelessWidget {
-  final List<Product> products;
-  ProductList({Key key, @required this.products}):super(key: key);
+class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('商品列表')
+      appBar: AppBar(title: Text('找供应商要电话')),
+      body: Center(
+        child: RouteButton()
       ),
-      body: ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index){
-          return ListTile(
-            title: Text(products[index].title),
-            onTap: (){
+    );
+  }
+}
 
-            },
-          );
-        }
-      )
+class RouteButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text('去找供应商'),
+      onPressed: (){
+        _navigateToXiaoJieJie(context);
+      }
+    );
+  }
+
+  _navigateToXiaoJieJie(BuildContext context) async{
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => XiaoJieJie())
+    );
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('$result')));
+    
+  }
+  
+}
+
+class XiaoJieJie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('我是供应商')),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              onPressed: (){
+                Navigator.pop(context, '飞机666');
+              },
+              child: Text('飞机')
+            ),
+            RaisedButton(
+              onPressed: (){
+                Navigator.pop(context, '坦克666');
+              },
+              child: Text('坦克')
+            )
+          ]
+        )
+      ),
     );
   }
 }
